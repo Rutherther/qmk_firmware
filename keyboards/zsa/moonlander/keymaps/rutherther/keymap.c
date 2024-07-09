@@ -2,6 +2,7 @@
 #include "version.h"
 #include "keymap_czech.h"
 #include "features/layer_lock.h"
+#include "features/cz_accent.h"
 
 #define MOON_LED_LEVEL LED_LEVEL
 
@@ -19,16 +20,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_ESCAPE,      KC_1,           KC_2,           KC_3,           KC_4,           KC_5,           TO(6),                                          KC_TRANSPARENT, KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_ESCAPE,
     MT(MOD_LGUI, KC_TAB),KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,           KC_PAGE_UP,                                     KC_HOME,        KC_Y,           KC_U,           KC_I,           KC_O,           LT(4,KC_P),     MT(MOD_LGUI, KC_BSLS),
     MT(MOD_LCTL, KC_BSPC),LT(1,KC_A),     KC_S,           KC_D,           KC_F,           LT(2,KC_G),     KC_PGDN,                                                                        KC_END,         KC_H,           KC_J,           KC_K,           KC_L,           LT(1,KC_SCLN),  MT(MOD_LCTL, KC_QUOTE),
-    KC_LEFT_SHIFT,  KC_Z,           KC_X,           KC_C,           LT(5,KC_V),     KC_B,                                           KC_N,           LT(5,KC_M),     KC_COMMA,       KC_DOT,         KC_SLASH,       KC_RIGHT_SHIFT,
+    OSM(MOD_LSFT),  KC_Z,           KC_X,           KC_C,           LT(5,KC_V),     KC_B,                                           KC_N,           LT(5,KC_M),     KC_COMMA,       KC_DOT,         KC_SLASH,       OSM(MOD_RSFT),
     CZ_ACUTED,      QK_CAPS_WORD_TOGGLE,    KC_LEFT_GUI, QK_LOCK,        LT(1,KC_ESCAPE),LCTL(KC_X),                                                                                                     LCTL(KC_C),     LT(1,KC_ESCAPE), KC_RIGHT_ALT, KC_TRANSPARENT, KC_TRANSPARENT, CZ_CARETED,
-    MT(MOD_LALT, KC_SPACE),MO(2),          MO(3),                          KC_DELETE,      QK_REP,        MT(MOD_LALT, KC_ENTER)
+    MT(MOD_LALT, KC_SPACE), QK_REP,          MO(3),                          KC_DELETE,      KC_BSPC,        MT(MOD_LALT, KC_ENTER)
   ),
   [1] = LAYOUT(
     KC_ESCAPE,      KC_F1,          KC_F2,          KC_F3,          KC_F4,          KC_F5,          KC_TRANSPARENT,                                 KC_PSCR,        KC_F6,          KC_F7,          KC_F8,          KC_F9,          KC_F10,         KC_F11,
     KC_TRANSPARENT, OSL(3),         KC_LABK,        KC_RABK,        KC_BSLS,        KC_GRAVE,       KC_TRANSPARENT,                                 KC_INSERT,      KC_AMPR,        KC_UNDS,        KC_LBRC,        KC_RBRC,        KC_TRANSPARENT, KC_F12,
-    KC_TRANSPARENT, KC_EXLM,        KC_MINUS,       KC_PLUS,        KC_EQUAL,       KC_HASH,        KC_TRANSPARENT,                                                                 KC_TRANSPARENT, KC_PIPE,        KC_TILD,        KC_LPRN,        KC_RPRN,        KC_PERC,        KC_TRANSPARENT,
-    KC_TRANSPARENT, KC_TRANSPARENT, KC_SLASH,       KC_ASTR,        KC_CIRC,        KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_DLR,         KC_LCBR,        KC_RCBR,        KC_TRANSPARENT, KC_TRANSPARENT,
-    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, RGB_MODE_FORWARD,                                                                                                RGB_TOG,        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
+    KC_TRANSPARENT, KC_EXLM,        KC_MINUS,       KC_PLUS,        KC_EQUAL,       KC_HASH,        KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_PIPE,        KC_TILD,        KC_LPRN,        KC_RPRN,        KC_PERC,        KC_TRANSPARENT,
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_SLASH,       KC_ASTR,        KC_CIRC,        KC_TRANSPARENT,                                                                 KC_TRANSPARENT, KC_DLR,         KC_LCBR,        KC_RCBR,        KC_AT,          KC_TRANSPARENT,
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, RGB_MODE_FORWARD,                                               RGB_TOG,        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
     RGB_VAD,        RGB_VAI,        TOGGLE_LAYER_COLOR,                RGB_SLD,        RGB_HUD,        RGB_HUI
   ),
   [2] = LAYOUT(
@@ -176,59 +177,17 @@ bool rgb_matrix_indicators_user(void) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  static bool cz_send_careted = false;
-  static bool cz_send_acuted = false;
 
+  if (!process_czech_acute(keycode, record, CZ_ACUTED, PLAIN_LAYER)) { return false; }
+  if (!process_czech_caret(keycode, record, CZ_CARETED, PLAIN_LAYER)) { return false; }
   if (!process_layer_lock(keycode, record, QK_LLCK)) { return false; }
 
   switch (keycode) {
-  case CZ_CARETED:
-    cz_send_careted = record->event.pressed;
-
-    if (record->event.pressed) {
-      layer_move(PLAIN_LAYER);
-    } else {
-      layer_move(0);
-    }
-    return false;
-  case CZ_ACUTED:
-    cz_send_acuted = record->event.pressed;
-
-    if (record->event.pressed) {
-      layer_move(PLAIN_LAYER);
-    } else {
-      layer_move(0);
-    }
-    return false;
-
-  case RGB_SLD:
+    case RGB_SLD:
       if (record->event.pressed) {
           rgblight_mode(1);
       }
       return false;
-  }
-
-  if (cz_send_careted && keycode != CZ_CARETED && keycode != KC_LEFT_SHIFT && keycode != KC_RIGHT_SHIFT && record->event.pressed) {
-    if (QK_MODS_GET_BASIC_KEYCODE(keycode) == KC_U) {
-      tap_code16(LSFT(RALT(CZ_SCLN)));
-    } else {
-      tap_code16(LSFT(RALT(CZ_ACUT)));
-    }
-  }
-
-  if (cz_send_acuted && keycode != CZ_ACUTED  && keycode != KC_LEFT_SHIFT && keycode != KC_RIGHT_SHIFT && record->event.pressed) {
-    const uint8_t mods = get_mods() | get_weak_mods();
-    // 1. release shift if held, save if held to shift_held
-    // 2. send acute accent char with ralt
-    // 3. if shift_held, hold shift
-    // 4. process original
-    if ((mods & MOD_MASK_SHIFT) != 0) {
-      del_weak_mods(MOD_MASK_SHIFT);
-      unregister_mods(MOD_MASK_SHIFT);
-    }
-
-    tap_code16(RALT(CZ_ACUT));
-    set_mods(mods);
   }
 
   return true;
