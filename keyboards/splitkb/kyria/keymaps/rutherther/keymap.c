@@ -57,59 +57,59 @@ enum custom_keycodes {
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT(
-    SUP_TAB , KC_Q ,  KC_W   ,  KC_E  ,     KC_R ,   KC_T ,                                          KC_Y ,   KC_U ,  KC_I ,   KC_O ,  KC_P , SUP_BSLS,
-    CTL_ESC , SYM_A,  KC_S   ,  KC_D  ,     KC_F ,   KC_G ,                                          KC_H ,   KC_J ,  KC_K ,   KC_L ,SYM_SCLN, CTL_QUOT,
-    OSM_LSFT, KC_Z ,  KC_X   ,  KC_C  , NAV_V,   KC_B , GAMES, MEDIA  ,     FKEYS  , _______ , KC_N ,   KC_M,KC_COMM, KC_DOT ,KC_SLSH, OSM_RSFT ,
-    QK_LOCK, CZ_ACUTED,QK_REP,  ALT_SPC  , NUM    ,     GUI    ,ALT_ENT, KC_BSPC, CZ_CARETED , KC_APP
+    SUP_TAB,  KC_Q,     KC_W,     KC_E,     KC_R,      KC_T,                                                       KC_Y,     KC_U,       KC_I,     KC_O,     KC_P,     SUP_BSLS,
+    CTL_ESC,  SYM_A,    KC_S,     KC_D,     KC_F,      KC_G,                                                       KC_H,     KC_J,       KC_K,     KC_L,     SYM_SCLN, CTL_QUOT,
+    OSM_LSFT, KC_Z,     KC_X,     KC_C,     NAV_V,     KC_B,     GAMES,    MEDIA,              FKEYS,    _______,  KC_N,     KC_M,       KC_COMM,  KC_DOT,   KC_SLSH,  OSM_RSFT,
+                                  QK_LOCK,  CZ_ACUTED, QK_REP,   ALT_SPC,  NUM,                GUI,      ALT_ENT,  KC_BSPC,  CZ_CARETED, KC_APP
   ),
 
   [_NAV] = LAYOUT(
-    _______, _______, _______, _______, _______, _______,                                     KC_HOME, KC_PGDN, KC_PGUP,KC_END, KC_INS, KC_DEL,
-    _______, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, _______,                                     KC_LEFT, KC_DOWN, KC_UP, KC_RGHT, _______, _______,
-    _______, _______, _______, _______, _______, _______, _______, KC_SCRL, _______, _______,KC_PAUSE, KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE, KC_PSCR,
-    _______, _______, _______, _______, _______, QK_LLCK, _______, _______, _______, _______
+    _______,  _______,  _______,  _______,  _______,  _______,                                                    KC_HOME,  KC_PGDN,  KC_PGUP,  KC_END,   KC_INS,   KC_DEL,
+    _______,  KC_LGUI,  KC_LALT,  KC_LCTL,  KC_LSFT,  _______,                                                    KC_LEFT,  KC_DOWN,  KC_UP,    KC_RGHT,  _______,  _______,
+    _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_SCRL,            _______,  _______,  KC_PAUSE, KC_MPRV,  KC_MPLY,  KC_MNXT,  KC_MUTE,  KC_PSCR,
+                                  _______,  _______,  _______,  _______,  _______,            QK_LLCK,  _______,  _______,  _______,  _______
   ),
 
   [_NUM] = LAYOUT(
-    _______, _______, _______, _______, _______, _______,                                     KC_EQUAL, KC_8, KC_9,KC_4, KC_PLUS   , KC_SLASH,
-    _______, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, _______,                                     KC_COLN, KC_1, KC_2, KC_3, KC_MINUS  , KC_ASTR,
-    _______, _______, _______, _______, _______, _______, _______, KC_SCRL, _______, _______,KC_COMMA, KC_7, KC_6, KC_5, KC_DOT    , _______,
-    _______, _______, _______, _______, _______, QK_LLCK, KC_0, _______, _______, _______
+    _______,  _______,  _______,  _______,  _______,  _______,                                                    KC_EQUAL, KC_8,     KC_9,     KC_4,     KC_PLUS,  KC_SLASH,
+    _______,  KC_LGUI,  KC_LALT,  KC_LCTL,  KC_LSFT,  _______,                                                    KC_COLN,  KC_1,     KC_2,     KC_3,     KC_MINUS, KC_ASTR,
+    _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_SCRL,            _______,  _______,  KC_COMMA, KC_7,     KC_6,     KC_5,     KC_DOT,   _______,
+                                  _______,  _______,  _______,  _______,  _______,            QK_LLCK,  KC_0,     _______,  _______,  _______
   ),
 
   [_SYM] = LAYOUT(
-                  _______ , _______ , KC_LABK,  KC_RABK,   KC_BSLS,KC_GRAVE,                                      KC_AMPR,KC_UNDS, KC_LBRC,KC_RBRC, _______, _______ ,
-    _______ ,KC_EXLM,KC_MINUS,  KC_PLUS,  KC_EQUAL, KC_HASH,                                          KC_PIPE, KC_TILD, KC_LPRN, KC_RPRN, KC_PERC, _______,
-    _______ , _______ , KC_SLASH,  KC_ASTR,  KC_CIRC, _______ , _______ , _______ ,      _______ , _______ , _______ ,  KC_DLR,KC_LCBR,KC_RCBR,   KC_AT, _______,
-                                _______, _______, _______, _______, _______, QK_LLCK, _______, _______, _______, _______
+    _______,  _______,  KC_LABK,  KC_RABK,  KC_BSLS,  KC_GRAVE,                                                   KC_AMPR,  KC_UNDS,  KC_LBRC,  KC_RBRC,  _______,  _______,
+    _______,  KC_EXLM,  KC_MINUS, KC_PLUS,  KC_EQUAL, KC_HASH,                                                    KC_PIPE,  KC_TILD,  KC_LPRN,  KC_RPRN,  KC_PERC,  _______,
+    _______,  _______,  KC_SLASH, KC_ASTR,  KC_CIRC,  _______,  _______,  _______,            _______,  _______,  _______,  KC_DLR,   KC_LCBR,  KC_RCBR,  KC_AT,    _______,
+                                  _______,  _______,  _______,  _______,  _______,            QK_LLCK,  _______,  _______,  _______,  _______
   ),
 
   [_FUNCTION] = LAYOUT(
-    _______,  _______,  KC_F4 ,  KC_F9,  KC_F8, KC_F10,                                     _______, _______, _______, _______, _______, _______,
-    _______,  _______,  KC_F3 ,  KC_F2 ,  KC_F1 , KC_F11,                                     _______, KC_RSFT, KC_RCTL, KC_LALT, KC_RGUI, _______,
-    _______,  _______,  KC_F5 ,  KC_F6 ,  KC_F7 , KC_F12, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-                                _______, _______, _______, _______, _______, QK_LOCK, _______, _______, _______, _______
+    _______,  _______,  KC_F4,    KC_F9,    KC_F8,    KC_F10,                                                     _______,  _______,  _______,  _______,  _______,  _______,
+    _______,  _______,  KC_F3,    KC_F2,    KC_F1,    KC_F11,                                                     _______,  KC_RSFT,  KC_RCTL,  KC_LALT,  KC_RGUI,  _______,
+    _______,  _______,  KC_F5,    KC_F6,    KC_F7,    KC_F12,   _______,  _______,            _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
+                                  _______,  _______,  _______,  _______,  _______,            QK_LOCK,  _______,  _______,  _______,  _______
   ),
 
   [_GUI] = LAYOUT(
-    _______,  WM_MON2,  WM_WS(4) , WM_WS(9) ,  WM_WS(8), _______,                   _______, WM_RUN, WM_RUN2, WM_TERM, _______, _______,
-    _______,  WM_MON1,  WM_WS(3) ,  WM_WS(2) ,  WM_WS(1) , _______,                                     _______, KC_RSFT, KC_RCTL, KC_LALT, KC_RGUI, _______,
-    _______,  WM_MON3,  WM_WS(5) ,  WM_WS(6) ,  WM_WS(7) , _______, _______, _______, _______, _______, _______, _______, WM_KILL, _______, _______, _______,
-                                _______, _______, _______, _______, _______, QK_LOCK, _______, _______, _______, _______
+    _______,  WM_MON2,  WM_WS(4), WM_WS(9), WM_WS(8), _______,                                                    _______,  WM_RUN,   WM_RUN2,  WM_TERM,  _______,  _______,
+    _______,  WM_MON1,  WM_WS(3), WM_WS(2), WM_WS(1), _______,                                                    _______,  KC_RSFT,  KC_RCTL,  KC_LALT,  KC_RGUI,  _______,
+    _______,  WM_MON3,  WM_WS(5), WM_WS(6), WM_WS(7), _______,  _______,  _______,            _______,  _______,  _______,  _______,  WM_KILL,  _______,  _______,  _______,
+                                  _______,  _______,  _______,  _______,  _______,            QK_LOCK,  _______,  _______,  _______,  _______
   ),
 
   [_GAMES] = LAYOUT(
-    KC_TAB , KC_Q ,  KC_W   ,  KC_E  ,     KC_R ,   KC_T ,                                          KC_Y ,   KC_U ,  KC_I ,   KC_O ,  KC_P , KC_BSLS,
-    KC_LCTL, KC_A ,  KC_S   ,  KC_D  ,     KC_F ,   KC_G ,                                          KC_H ,   KC_J ,  KC_K ,   KC_L ,KC_SCLN, KC_QUOT,
-    OSM_LSFT,KC_Z ,  KC_X   ,  KC_C  ,     KC_V ,   KC_B ,  QWERTY  , MEDIA  ,     FKEYS  , _______,KC_N ,   KC_M ,KC_COMM, KC_DOT ,KC_SLSH, OSM_RSFT ,
-                              QK_LOCK, CZ_ACUTED, KC_SPC,  QK_REP  , NUM    ,     GUI    , KC_BSPC,KC_ENT, CZ_CARETED , KC_APP
+    KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,      KC_T,                                                       KC_Y,     KC_U,       KC_I,     KC_O,     KC_P,     KC_BSLS,
+    KC_LCTL,  KC_A,     KC_S,     KC_D,     KC_F,      KC_G,                                                       KC_H,     KC_J,       KC_K,     KC_L,     KC_SCLN,  KC_QUOT,
+    OSM_LSFT, KC_Z,     KC_X,     KC_C,     KC_V,      KC_B,     QWERTY,   MEDIA,              FKEYS,    _______,  KC_N,     KC_M,       KC_COMM,  KC_DOT,   KC_SLSH,  OSM_RSFT,
+                                  QK_LOCK,  CZ_ACUTED, KC_SPC,   QK_REP,   NUM,                GUI,      KC_BSPC,  KC_ENT,   CZ_CARETED, KC_APP
   ),
 
   [_PLAIN] = LAYOUT(
-    KC_TAB , KC_Q ,  KC_W   ,  KC_E  ,     KC_R ,   KC_T ,                                          KC_Y ,   KC_U ,  KC_I ,   KC_O ,  KC_P , KC_BSLS,
-    KC_LCTL, KC_A ,  KC_S   ,  KC_D  ,     KC_F ,   KC_G ,                                          KC_H ,   KC_J ,  KC_K ,   KC_L ,KC_SCLN, KC_QUOT,
-    OSM_LSFT,KC_Z ,  KC_X   ,  KC_C  ,     KC_V ,   KC_B ,  GAMES   , MEDIA  ,     FKEYS  , _______ ,KC_N ,   KC_M ,KC_COMM, KC_DOT ,KC_SLSH, OSM_RSFT ,
-                              QK_LOCK, CZ_ACUTED,KC_SPC,  QK_REP  , NUM    ,     GUI    , KC_BSPC,KC_ENT, CZ_CARETED , KC_APP
+    KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,      KC_T,                                                       KC_Y,     KC_U,       KC_I,     KC_O,     KC_P,     KC_BSLS,
+    KC_LCTL,  KC_A,     KC_S,     KC_D,     KC_F,      KC_G,                                                       KC_H,     KC_J,       KC_K,     KC_L,     KC_SCLN,  KC_QUOT,
+    OSM_LSFT, KC_Z,     KC_X,     KC_C,     KC_V,      KC_B,     GAMES,    MEDIA,              FKEYS,    _______,  KC_N,     KC_M,       KC_COMM,  KC_DOT,   KC_SLSH,  OSM_RSFT,
+                                  QK_LOCK,  CZ_ACUTED, KC_SPC,   QK_REP,   NUM,                GUI,      KC_BSPC,  KC_ENT,   CZ_CARETED, KC_APP
   ),
 };
 
