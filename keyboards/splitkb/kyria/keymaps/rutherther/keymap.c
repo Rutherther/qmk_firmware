@@ -40,20 +40,32 @@ enum custom_keycodes {
 #define OSM_LSFT OSM(MOD_LSFT)
 #define OSM_RSFT OSM(MOD_RSFT)
 
-/// and gui map
+#define NAV_V LT(_NAV, KC_V)
+
+#define SYM_SCLN LT(_SYM, KC_SCLN)
+#define SYM_A LT(_SYM, KC_A)
+
+#define WM_MON1 G(KC_W)
+#define WM_MON2 G(KC_E)
+#define WM_MON3 G(KC_R)
+#define WM_WS(i) G(KC_##i)
+#define WM_RUN G(KC_SCLN)
+#define WM_RUN2 G(S(KC_SCLN))
+#define WM_TERM G(S(KC_ENT))
+#define WM_KILL G(S(KC_C))
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT(
     SUP_TAB , KC_Q ,  KC_W   ,  KC_E  ,     KC_R ,   KC_T ,                                          KC_Y ,   KC_U ,  KC_I ,   KC_O ,  KC_P , SUP_BSLS,
-    CTL_ESC , LT(_SYM, KC_A) ,  KC_S   ,  KC_D  ,     KC_F ,   KC_G ,                                          KC_H ,   KC_J ,  KC_K ,   KC_L ,LT(_SYM, KC_SCLN), CTL_QUOT,
-    OSM_LSFT, KC_Z ,  KC_X   ,  KC_C  ,LT(_NAV, KC_V),   KC_B , GAMES, MEDIA  ,     FKEYS  , _______ , KC_N ,   LT(NAV, KC_M) ,KC_COMM, KC_DOT ,KC_SLSH, OSM_RSFT ,
+    CTL_ESC , SYM_A,  KC_S   ,  KC_D  ,     KC_F ,   KC_G ,                                          KC_H ,   KC_J ,  KC_K ,   KC_L ,SYM_SCLN, CTL_QUOT,
+    OSM_LSFT, KC_Z ,  KC_X   ,  KC_C  , NAV_V,   KC_B , GAMES, MEDIA  ,     FKEYS  , _______ , KC_N ,   KC_M,KC_COMM, KC_DOT ,KC_SLSH, OSM_RSFT ,
     QK_LOCK, CZ_ACUTED,QK_REP,  ALT_SPC  , NUM    ,     GUI    ,ALT_ENT, KC_BSPC, CZ_CARETED , KC_APP
   ),
 
   [_NAV] = LAYOUT(
-    _______, _______, _______, _______, _______, _______,                                     KC_HOME, KC_PGDN, KC_PGUP,KC_END, _______, KC_DEL,
-    _______, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, _______,                                     KC_LEFT, KC_DOWN, KC_UP, KC_RGHT, _______, KC_INS,
+    _______, _______, _______, _______, _______, _______,                                     KC_HOME, KC_PGDN, KC_PGUP,KC_END, KC_INS, KC_DEL,
+    _______, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, _______,                                     KC_LEFT, KC_DOWN, KC_UP, KC_RGHT, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, KC_SCRL, _______, _______,KC_PAUSE, KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE, KC_PSCR,
     _______, _______, _______, _______, _______, QK_LLCK, _______, _______, _______, _______
   ),
@@ -80,9 +92,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_GUI] = LAYOUT(
-    _______,  G(KC_W),  G(KC_4) , G(KC_9) ,  G(KC_8), _______,                   _______, G(S(KC_SCLN)), G(S(KC_ENT)), _______, _______, _______,
-    _______,  G(KC_E),  G(KC_3) ,  G(KC_2) ,  G(KC_1) , _______,                                     _______, KC_RSFT, KC_RCTL, KC_LALT, KC_RGUI, _______,
-    _______,  G(KC_R),  G(KC_5) ,  G(KC_6) ,  G(KC_7) , _______, _______, _______, _______, _______, _______, G(KC_SCLN), G(S(KC_C)), _______, _______, _______,
+    _______,  WM_MON2,  WM_WS(4) , WM_WS(9) ,  WM_WS(8), _______,                   _______, WM_RUN, WM_RUN2, WM_TERM, _______, _______,
+    _______,  WM_MON1,  WM_WS(3) ,  WM_WS(2) ,  WM_WS(1) , _______,                                     _______, KC_RSFT, KC_RCTL, KC_LALT, KC_RGUI, _______,
+    _______,  WM_MON3,  WM_WS(5) ,  WM_WS(6) ,  WM_WS(7) , _______, _______, _______, _______, _______, _______, _______, WM_KILL, _______, _______, _______,
                                 _______, _______, _______, _______, _______, QK_LOCK, _______, _______, _______, _______
   ),
 
@@ -120,3 +132,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   return true;
 }
+
+/*
+qmk-keyboard-format:json:begin
+{
+    "name": "Kyria",
+    "numkeys": 50,
+    "rows": [
+        [  0,  1,  2,  3,  4,  5, -1, -1, -2, -1, -1,  6,  7,  8,  9, 10, 11 ],
+        [ 12, 13, 14, 15, 16, 17, -1, -1, -2, -1, -1, 18, 19, 20, 21, 22, 23 ],
+        [ 24, 25, 26, 27, 28, 29, 30, 31, -2, 32, 33, 34, 35, 36, 37, 38, 39 ],
+        [ -1, -1, -1, 40, 41, 42, 43, 44, -2, 45, 46, 47, 48, 49, -1, -1, -1 ]
+        ]
+}
+qmk-keyboard-format:json:end
+*/
