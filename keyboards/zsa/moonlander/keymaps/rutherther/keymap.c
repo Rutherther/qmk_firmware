@@ -1,6 +1,4 @@
 #include QMK_KEYBOARD_H
-#include "version.h"
-#include "keymap_czech.h"
 #include "features/layer_lock.h"
 #include "features/cz_accent.h"
 

@@ -2,7 +2,7 @@
 #include "keymap_czech.h"
 
 const uint16_t cz_acute_keycodes[] = {
-  KC_A, KC_E, KC_I, KC_O, KC_U
+  KC_A, KC_E, KC_I, KC_O, KC_U, KC_Y
 };
 const uint8_t NUM_ACUTE_KEYCODES = sizeof(cz_acute_keycodes) / sizeof(uint16_t);
 
