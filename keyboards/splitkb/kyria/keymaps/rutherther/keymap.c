@@ -31,7 +31,7 @@ enum custom_keycodes {
 #define QWERTY   TO(_GAMES)
 
 #define CTL_ESC  MT(MOD_LCTL, KC_ESC)
-#define CTL_QUOT MT(MOD_RCTL, KC_QUOTE)
+#define CTL_QUOT MT(MOD_LCTL, KC_QUOTE)
 #define SUP_BSLS MT(MOD_LGUI, KC_BSLS)
 #define SUP_TAB  MT(MOD_LGUI, KC_TAB)
 #define ALT_ENT  MT(MOD_LALT, KC_ENT)
@@ -110,7 +110,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_GUI] = LAYOUT(
     _______,  G(KC_W),  G(KC_4) , G(KC_9) ,  G(KC_8), _______,                   _______, G(S(KC_SCLN)), G(S(KC_ENT)), _______, _______, _______,
     _______,  G(KC_E),  G(KC_3) ,  G(KC_2) ,  G(KC_1) , _______,                                     _______, KC_RSFT, KC_RCTL, KC_LALT, KC_RGUI, _______,
-    _______,  G(KC_R),  G(KC_5) ,  G(KC_6) ,  G(KC_7) , _______, _______, _______, _______, G(KC_SCLN), G(S(KC_C)), _______, _______, _______, _______, _______,
+    _______,  G(KC_R),  G(KC_5) ,  G(KC_6) ,  G(KC_7) , _______, _______, _______, _______, _______, _______, G(KC_SCLN), G(S(KC_C)), _______, _______, _______,
                                 _______, _______, _______, _______, _______, QK_LOCK, _______, _______, _______, _______
   ),
 
