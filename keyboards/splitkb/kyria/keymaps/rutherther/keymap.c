@@ -41,6 +41,8 @@ enum custom_keycodes {
 #define OSM_RSFT OSM(MOD_RSFT)
 
 #define NAV_V LT(_NAV, KC_V)
+#define NUM_G LT(_NUM, KC_G)
+#define GUI_M LT(_GUI, KC_M)
 
 #define SYM_SCLN LT(_SYM, KC_SCLN)
 #define SYM_A LT(_SYM, KC_A)
@@ -57,10 +59,10 @@ enum custom_keycodes {
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT(
-    SUP_TAB,  KC_Q,     KC_W,     KC_E,     KC_R,      KC_T,                                                       KC_Y,     KC_U,       KC_I,     KC_O,     KC_P,     SUP_BSLS,
-    CTL_ESC,  SYM_A,    KC_S,     KC_D,     KC_F,      KC_G,                                                       KC_H,     KC_J,       KC_K,     KC_L,     SYM_SCLN, CTL_QUOT,
-    OSM_LSFT, KC_Z,     KC_X,     KC_C,     NAV_V,     KC_B,     GAMES,    MEDIA,              FKEYS,    _______,  KC_N,     KC_M,       KC_COMM,  KC_DOT,   KC_SLSH,  OSM_RSFT,
-                                  QK_LOCK,  CZ_ACUTED, QK_REP,   ALT_SPC,  NUM,                GUI,      ALT_ENT,  KC_BSPC,  CZ_CARETED, KC_APP
+    SUP_TAB,  KC_Q,     KC_W,     KC_E,     KC_R,      KC_T,                                                        KC_Y,     KC_U,       KC_I,     KC_O,     KC_P,     SUP_BSLS,
+    CTL_ESC,  SYM_A,    KC_S,     KC_D,     KC_F,      NUM_G,                                                       KC_H,     KC_J,       KC_K,     KC_L,     SYM_SCLN, CTL_QUOT,
+    OSM_LSFT, KC_Z,     KC_X,     KC_C,     NAV_V,     KC_B,     GAMES,    MEDIA,              FKEYS,     _______,  KC_N,     GUI_M,      KC_COMM,  KC_DOT,   KC_SLSH,  OSM_RSFT,
+                                  QK_LOCK,  CZ_ACUTED, QK_REP,   ALT_SPC,  CZ_ACUTED,          CZ_CARETED,ALT_ENT,  KC_BSPC,  CZ_CARETED, KC_APP
   ),
 
   [_PLAIN] = LAYOUT(
@@ -74,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,      KC_T,                                                       KC_Y,     KC_U,       KC_I,     KC_O,     KC_P,     KC_BSLS,
     KC_LCTL,  KC_A,     KC_S,     KC_D,     KC_F,      KC_G,                                                       KC_H,     KC_J,       KC_K,     KC_L,     KC_SCLN,  KC_QUOT,
     OSM_LSFT, KC_Z,     KC_X,     KC_C,     KC_V,      KC_B,    KC_LALT,    MEDIA,              FKEYS,    QWERTY,  KC_N,     KC_M,       KC_COMM,  KC_DOT,   KC_SLSH,  OSM_RSFT,
-                                  _______,  _______,   NAV,     KC_SPC,   _______,                SYM,    KC_ENT,  _______,  _______,    KC_ESC
+                                  _______,  _______,   NAV,     KC_SPC,     NUM,                SYM,      KC_ENT,  _______,  _______,    KC_ESC
   ),
 
   [_NAV] = LAYOUT(

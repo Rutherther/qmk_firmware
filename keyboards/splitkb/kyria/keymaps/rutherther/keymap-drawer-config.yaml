@@ -51,6 +51,8 @@ parse_config:
     'RALT': '⎇'
     'TAB': '⭾'
     'NAV_V': 'V NAV'
+    'NUM_G': 'G NUM'
+    'GUI_M': 'M GUI'
     'ALT_ENT': "⏎ ⎇"
     'ENT': "⏎"
     'ALT_SPC': "Spc ⎇"
