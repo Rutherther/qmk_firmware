@@ -67,6 +67,9 @@ parse_config:
     'SYM_A': "A SYM"
     'QK_LOCK': 'Lock Key'
     'QK_LLCK': 'Lock Layer'
+    'DT_UP': 'Term inc'
+    'DT_DOWN': 'Term dec'
+    'DT_PRNT': 'Term print'
     MINUS: '-'
     MINS: '-'
     EQUAL: '='
