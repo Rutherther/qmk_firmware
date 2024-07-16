@@ -17,7 +17,7 @@
 #define QK_CZ_SCLN LSFT(RALT(CZ_SCLN))
 
 bool process_czech_acute(uint16_t keycode, keyrecord_t* record,
-                         uint16_t acute_keycode, int8_t plain_layer);
+                         uint16_t acute_keycode);
 
 bool process_czech_caret(uint16_t keycode, keyrecord_t* record,
-                         uint16_t caret_keycode, int8_t plain_layer);
+                         uint16_t caret_keycode);
