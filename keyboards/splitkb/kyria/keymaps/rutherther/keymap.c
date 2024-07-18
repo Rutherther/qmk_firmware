@@ -4,6 +4,7 @@
 
 enum layers {
   _QWERTY = 0,
+  _PLAIN,
   _GAMES,
   _SYM,
   _NAV,
@@ -62,6 +63,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     CTL_ESC,  SYM_A,    KC_S,     KC_D,     KC_F,      NUM_G,                                                       KC_H,     KC_J,       KC_K,     KC_L,     SYM_SCLN, CTL_QUOT,
     OSM_LSFT, KC_Z,     KC_X,     KC_C,     NAV_V,     KC_B,     GAMES,    CTRL,               FKEYS,     _______,  KC_N,     GUI_M,      KC_COMM,  KC_DOT,   KC_SLSH,  OSM_RSFT,
                                   QK_LOCK,  CZ_ACUTED, QK_REP,   ALT_SPC,  CZ_ACUTED,          CZ_CARETED,ALT_ENT,  KC_BSPC,  CZ_CARETED, KC_APP
+  ),
+
+  [_PLAIN] = LAYOUT(
+    KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,      KC_T,                                                       KC_Y,     KC_U,       KC_I,     KC_O,     KC_P,     KC_BSLS,
+    KC_LCTL,  KC_A,     KC_S,     KC_D,     KC_F,      KC_G,                                                       KC_H,     KC_J,       KC_K,     KC_L,     KC_SCLN,  KC_QUOT,
+    OSM_LSFT, KC_Z,     KC_X,     KC_C,     KC_V,      KC_B,    _______,    CTRL,              FKEYS,    _______,  KC_N,     KC_M,       KC_COMM,  KC_DOT,   KC_SLSH,  OSM_RSFT,
+                                  _______,  _______,  _______,  _______,  _______,             _______,  _______,  _______,  _______,    _______
   ),
 
   [_GAMES] = LAYOUT(
@@ -130,8 +138,8 @@ void keyboard_pre_init_user(void) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (!process_czech_acute(keycode, record, CZ_ACUTED)) { return false; }
-  if (!process_czech_caret(keycode, record, CZ_CARETED)) { return false; }
+  if (!process_czech_acute(keycode, record, CZ_ACUTED, _PLAIN)) { return false; }
+  if (!process_czech_caret(keycode, record, CZ_CARETED, _PLAIN)) { return false; }
   if (!process_layer_lock(keycode, record, QK_LLCK)) { return false; }
 
   /* switch (keycode) {

@@ -176,8 +176,8 @@ bool rgb_matrix_indicators_user(void) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
-  if (!process_czech_acute(keycode, record, CZ_ACUTED)) { return false; }
-  if (!process_czech_caret(keycode, record, CZ_CARETED)) { return false; }
+  if (!process_czech_acute(keycode, record, CZ_ACUTED, PLAIN_LAYER)) { return false; }
+  if (!process_czech_caret(keycode, record, CZ_CARETED, PLAIN_LAYER)) { return false; }
   if (!process_layer_lock(keycode, record, QK_LLCK)) { return false; }
 
   switch (keycode) {

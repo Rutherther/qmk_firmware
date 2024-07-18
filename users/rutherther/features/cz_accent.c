@@ -13,23 +13,22 @@ const uint8_t NUM_CARET_KEYCODES = sizeof(cz_caret_keycodes) / sizeof(uint16_t);
 
 const uint16_t cz_scln_char = KC_U;
 
-bool process_prefixed_accent(uint16_t keycode, keyrecord_t* record, const uint16_t accent_prefix, const uint16_t *filters, const uint8_t filters_size) {
+void process_prefixed_accent(uint16_t keycode, keyrecord_t* record, const uint16_t accent_prefix, const uint16_t *filters, const uint8_t filters_size) {
+  // TODO wait for the actual key, this can trigger hold condition, I think
   if (!record->event.pressed) {
-    return true;
+    return;
   }
-
-  uint16_t bkeycode = QK_MODS_GET_BASIC_KEYCODE(keycode);
 
   bool found = false;
   for (int i = 0; i < filters_size; i++) {
-    if (bkeycode == filters[i]) {
+    if (QK_MODS_GET_BASIC_KEYCODE(keycode) == filters[i]) {
       found = true;
       break;
     }
   }
 
   if (!found) {
-    return true;
+    return;
   }
 
   const uint8_t mods = get_mods() | get_weak_mods() | get_oneshot_mods();
@@ -39,11 +38,8 @@ bool process_prefixed_accent(uint16_t keycode, keyrecord_t* record, const uint16
   clear_oneshot_mods();
 
   tap_code16(accent_prefix);
+
   set_mods(mods);
-
-  tap_code16(bkeycode);
-
-  return false;
 }
 
 bool process_czech_acute(uint16_t keycode, keyrecord_t* record,
@@ -59,16 +55,16 @@ bool process_czech_acute(uint16_t keycode, keyrecord_t* record,
     // least I think. Maybe different function will have to be overriden
     // somehow.
     if (record->event.pressed) {
-      /* layer_move(plain_layer); */
+      layer_move(plain_layer);
     } else {
-      /* layer_move(0); */
+      layer_move(0);
     }
 
     return false;
   }
 
   if (cz_send_acuted) {
-    return process_prefixed_accent(keycode, record, QK_CZ_ACUTE, cz_acute_keycodes, NUM_ACUTE_KEYCODES);
+    process_prefixed_accent(keycode, record, QK_CZ_ACUTE, cz_acute_keycodes, NUM_ACUTE_KEYCODES);
   }
 
   return true;
@@ -82,28 +78,18 @@ bool process_czech_caret(uint16_t keycode, keyrecord_t* record,
     cz_send_careted = record->event.pressed;
 
     if (record->event.pressed) {
-      /* layer_move(plain_layer); */
+      layer_move(plain_layer);
     } else {
-      /* layer_move(0); */
+      layer_move(0);
     }
     return false;
   }
 
   if (cz_send_careted) {
     if (QK_MODS_GET_BASIC_KEYCODE(keycode) == cz_scln_char)
-      return process_prefixed_accent(
-                                     keycode,
-                                     record,
-                                     QK_CZ_SCLN,
-                                     cz_caret_keycodes,
-                                     NUM_CARET_KEYCODES);
+      process_prefixed_accent(keycode, record, QK_CZ_SCLN, cz_caret_keycodes, NUM_CARET_KEYCODES);
     else
-      return process_prefixed_accent(
-                                     keycode,
-                                     record,
-                                     QK_CZ_CARET,
-                                     cz_caret_keycodes,
-                                     NUM_CARET_KEYCODES);
+      process_prefixed_accent(keycode, record, QK_CZ_CARET, cz_caret_keycodes, NUM_CARET_KEYCODES);
   }
 
   return true;
