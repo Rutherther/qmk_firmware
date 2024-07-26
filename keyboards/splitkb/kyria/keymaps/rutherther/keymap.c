@@ -4,13 +4,14 @@
 
 enum layers {
   _QWERTY = 0,
+  _QWERTY_NOHOMEMODS,
   _PLAIN,
   _GAMES,
   _SYM,
   _NAV,
   _FUNCTION,
   _NUM,
-  _GUI,
+  _WM,
   _CTRL,
   _TTY,
 };
@@ -26,11 +27,12 @@ enum custom_keycodes {
 #define NAV      MO(_NAV)
 #define FKEYS    MO(_FUNCTION)
 #define CTRL     MO(_CTRL)
-#define GUI      MO(_GUI)
+#define WM       MO(_WM)
 #define TTY      MO(_TTY)
 
 #define GAMES    TO(_GAMES)
 #define QWERTY   TO(_QWERTY)
+#define NOHOMODS   TO(_QWERTY_NOHOMEMODS)
 
 #define CTL_ESC  MT(MOD_LCTL, KC_ESC)
 #define CTL_QUOT MT(MOD_LCTL, KC_QUOTE)
@@ -44,10 +46,19 @@ enum custom_keycodes {
 
 #define NAV_V LT(_NAV, KC_V)
 #define NUM_G LT(_NUM, KC_G)
-#define GUI_M LT(_GUI, KC_M)
+#define WM_M LT(_WM, KC_M)
 
-#define SYM_SCLN LT(_SYM, KC_SCLN)
+#define GUI_Q MT(MOD_LGUI, KC_Q)
 #define SYM_A LT(_SYM, KC_A)
+#define LALT_S MT(MOD_LALT, KC_S)
+#define LSFT_D MT(MOD_LSFT, KC_D)
+#define LCTL_F MT(MOD_LCTL, KC_F)
+
+#define GUI_P MT(MOD_RGUI, KC_P)
+#define SYM_SCLN LT(_SYM, KC_SCLN)
+#define LALT_L MT(MOD_LALT, KC_L)
+#define RSFT_K MT(MOD_RSFT, KC_K)
+#define LCTL_J MT(MOD_LCTL, KC_J)
 
 #define WM_MON1 G(KC_W)
 #define WM_MON2 G(KC_E)
@@ -61,10 +72,17 @@ enum custom_keycodes {
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT(
+    SUP_TAB,  GUI_Q,    KC_W,     KC_E,     KC_R,      KC_T,                                                        KC_Y,     KC_U,       KC_I,     KC_O,     GUI_P,    SUP_BSLS,
+    CTL_ESC,  SYM_A,    LALT_S,   LSFT_D,   LCTL_F,    NUM_G,                                                       KC_H,     LCTL_J,     RSFT_K,   LALT_L,   SYM_SCLN, CTL_QUOT,
+    OSM_LSFT, KC_Z,     KC_X,     KC_C,     NAV_V,     KC_B,     NOHOMODS, CTRL,               FKEYS,     TTY,      KC_N,     WM_M,       KC_COMM,  KC_DOT,   KC_SLSH,  OSM_RSFT,
+                                  QK_LOCK,  _______,   QK_REP,   ALT_SPC,  CZ_ACUTED,          CZ_CARETED,ALT_ENT,  KC_BSPC,  KC_DEL,     KC_APP
+  ),
+
+  [_QWERTY_NOHOMEMODS] = LAYOUT(
     SUP_TAB,  KC_Q,     KC_W,     KC_E,     KC_R,      KC_T,                                                        KC_Y,     KC_U,       KC_I,     KC_O,     KC_P,     SUP_BSLS,
     CTL_ESC,  SYM_A,    KC_S,     KC_D,     KC_F,      NUM_G,                                                       KC_H,     KC_J,       KC_K,     KC_L,     SYM_SCLN, CTL_QUOT,
-    OSM_LSFT, KC_Z,     KC_X,     KC_C,     NAV_V,     KC_B,     GAMES,    CTRL,               FKEYS,     TTY,      KC_N,     GUI_M,      KC_COMM,  KC_DOT,   KC_SLSH,  OSM_RSFT,
-                                  QK_LOCK,  _______,   QK_REP,   ALT_SPC,  CZ_ACUTED,          CZ_CARETED,ALT_ENT,  KC_BSPC,  KC_DEL,     KC_APP
+    OSM_LSFT, KC_Z,     KC_X,     KC_C,     NAV_V,     KC_B,     GAMES,    CTRL,               FKEYS,     TTY,      KC_N,     WM_M,       KC_COMM,  KC_DOT,   KC_SLSH,  OSM_RSFT,
+                                  QK_LOCK,  QWERTY,    QK_REP,   ALT_SPC,  CZ_ACUTED,          CZ_CARETED,ALT_ENT,  KC_BSPC,  KC_DEL,     KC_APP
   ),
 
   [_PLAIN] = LAYOUT(
@@ -90,14 +108,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_NAV] = LAYOUT(
     _______,  _______,  _______,  _______,  _______,  _______,                                                    KC_HOME,  KC_PGDN,  KC_PGUP,  KC_END,   KC_INS,   KC_DEL,
-    _______,  KC_LGUI,  KC_LALT,  KC_LCTL,  KC_LSFT,  _______,                                                    KC_LEFT,  KC_DOWN,  KC_UP,    KC_RGHT,  _______,  _______,
+    _______,  KC_LGUI,  KC_LALT,  KC_LSFT,  KC_LCTL,  _______,                                                    KC_LEFT,  KC_DOWN,  KC_UP,    KC_RGHT,  _______,  _______,
     _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_SCRL,            _______,  _______,  KC_PAUSE, KC_MPRV,  KC_MPLY,  KC_MNXT,  KC_MUTE,  KC_PSCR,
                                   _______,  _______,  _______,  _______,  _______,            QK_LLCK,  _______,  _______,  _______,  _______
   ),
 
   [_FUNCTION] = LAYOUT(
     _______,  _______,  KC_F4,    KC_F9,    KC_F8,    KC_F10,                                                     _______,  _______,  _______,  _______,  _______,  _______,
-    _______,  _______,  KC_F3,    KC_F2,    KC_F1,    KC_F11,                                                     _______,  KC_RSFT,  KC_RCTL,  KC_LALT,  KC_RGUI,  _______,
+    _______,  _______,  KC_F3,    KC_F2,    KC_F1,    KC_F11,                                                     _______,  KC_LCTL,  KC_RSFT,  KC_LALT,  KC_RGUI,  _______,
     _______,  _______,  KC_F5,    KC_F6,    KC_F7,    KC_F12,   _______,  _______,            _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
                                   _______,  _______,  _______,  _______,  _______,            QK_LLCK,  _______,  _______,  _______,  _______
   ),
@@ -109,9 +127,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                   _______,  _______,  _______,  _______,  _______,            QK_LLCK,  KC_0,     _______,  _______,  _______
   ),
 
-  [_GUI] = LAYOUT(
+  [_WM] = LAYOUT(
     _______,  WM_MON2,  WM_WS(4), WM_WS(9), WM_WS(8), _______,                                                    _______,  _______,  WM_RUN,   WM_RUN2,  WM_TERM,  _______,
-    _______,  WM_MON1,  WM_WS(3), WM_WS(2), WM_WS(1), _______,                                                    _______,  KC_RSFT,  KC_RCTL,  KC_LALT,  KC_RGUI,  WM_KILL,
+    _______,  WM_MON1,  WM_WS(3), WM_WS(2), WM_WS(1), _______,                                                    _______,  KC_RCTL,  KC_RSFT,  KC_LALT,  KC_RGUI,  WM_KILL,
     _______,  WM_MON3,  WM_WS(5), WM_WS(6), WM_WS(7), _______,  _______,  _______,            _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
                                   _______,  _______,  _______,  _______,  _______,            QK_LLCK,  _______,  _______,  _______,  _______
   ),
