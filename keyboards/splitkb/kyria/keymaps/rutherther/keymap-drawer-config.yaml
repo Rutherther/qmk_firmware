@@ -6,16 +6,16 @@ parse_config:
     type: trans
   mark_alternate_layer_activators: false
   modifier_fn_map:
-    left_ctrl: Ctl
-    right_ctrl: Ctl
-    left_shift: Sft
-    right_shift: Sft
-    left_alt: Alt
-    right_alt: AGr
-    left_gui: Gui
-    right_gui: Gui
-    keycode_combiner: '{mods}+ {key}'
-    mod_combiner: '{mod_1}+{mod_2}'
+    left_ctrl: C
+    right_ctrl: C
+    left_shift: S
+    right_shift: S
+    left_alt: M
+    right_alt: M
+    left_gui: s
+    right_gui: s
+    keycode_combiner: '{mods}-{key}'
+    mod_combiner: '{mod_1}-{mod_2}'
     special_combinations:
       left_ctrl+left_alt+left_gui+left_shift: Hyper
       left_ctrl+left_alt+left_shift: Meh
@@ -51,9 +51,20 @@ parse_config:
     'RALT': '⎇'
     'TAB': '⭾'
     'NAV_V': 'V NAV'
+    'WM_M': 'M GUI'
     'NUM_G': 'G NUM'
     'GUI_M': 'M GUI'
+    'GUI_P': 'P ⌘'
+    'S(KC_QUOT)': ':'
+    'LALT_L': 'L ⎇'
+    'RSFT_K': 'K ⇧'
+    'LCTL_J': 'J ^'
+    'GUI_Q': 'Q ⌘'
+    'LALT_S': 'S ⎇'
+    'LSFT_D': 'D ⇧'
+    'LCTL_F': 'F ^'
     'ALT_ENT': "⏎ ⎇"
+    'NUM_SPC': 'SPC NUM'
     'ENT': "⏎"
     'ALT_SPC': "Spc ⎇"
     'HYPER': '✧'
