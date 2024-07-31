@@ -1,6 +1,7 @@
 #include QMK_KEYBOARD_H
 #include "features/layer_lock.h"
 #include "features/cz_accent.h"
+#include "features/achordion.h"
 
 enum layers {
   _QWERTY = 0,
@@ -20,6 +21,8 @@ enum custom_keycodes {
   QK_LLCK = SAFE_RANGE,
   CZ_CARETED, // on hold send cz caret prepended to each symbol
   CZ_ACUTED, // on hold send cz acute prepended to each symbol
+  ACHORDION_OFF,
+  ACHORDION_ON,
 };
 
 #define SYM      MO(_SYM)
@@ -88,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_PLAIN] = LAYOUT(
     KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,      KC_T,                                                       KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_BSLS,
-    KC_LCTL,  KC_A,     KC_S,     KC_D,     KC_F,      KC_G,                                                       KC_H,     KC_J,     KC_K,     KC_L,     KC_SCLN,  KC_QUOT,
+    KC_LCTL,  KC_A,     KC_S,     LSFT_D,   KC_F,      KC_G,                                                       KC_H,     KC_J,     RSFT_K,   KC_L,     KC_SCLN,  KC_QUOT,
     KC_LSFT,  KC_Z,     KC_X,     KC_C,     KC_V,      KC_B,    _______,    CTRL,              FKEYS,    _______,  KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSFT,
                                   _______,  _______,  _______,  _______,  _______,             _______,  _______,  _______,  _______,  _______
   ),
@@ -143,8 +146,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_CTRL] = LAYOUT(
-    _______,  _______,  _______,  _______,  _______,  _______,                                                    DT_UP,    _______,  _______,  _______,  _______,  _______,
-    _______,  _______,  _______,  _______,  _______,  _______,                                                    DT_DOWN,  _______,  _______,  _______,  _______,  _______,
+    _______,  _______,  _______,  _______,  _______,  _______,                                                    DT_UP,    _______,  _______,  _______,  _______,  ACHORDION_ON,
+    _______,  _______,  _______,  _______,  _______,  _______,                                                    DT_DOWN,  _______,  _______,  _______,  _______,  ACHORDION_OFF,
     _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,  _______,  DT_PRNT,  _______,  _______,  _______,  _______,  _______,
                                   _______,  _______,  _______,  _______,  _______,            _______,  _______,  _______,  _______,  _______
   ),
@@ -173,15 +176,60 @@ void keyboard_pre_init_user(void) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  static bool achordion = true;
+
   if (!process_czech_acute(keycode, record, CZ_ACUTED, _PLAIN)) { return false; }
   if (!process_czech_caret(keycode, record, CZ_CARETED, _PLAIN)) { return false; }
   if (!process_layer_lock(keycode, record, QK_LLCK)) { return false; }
 
-  /* switch (keycode) {
-    case
-  } */
+  // NOTE: it's important that this is under processing czech accent modes
+  if (!is_in_czech_accent_mode() && achordion)
+    if (!process_achordion(keycode, record)) { return false; }
+
+  switch (keycode) {
+    case ACHORDION_OFF:
+      cancel_achordion();
+      achordion = false;
+      return false;
+    case ACHORDION_ON:
+      achordion = true;
+      return false;
+  }
 
   return true;
+}
+
+bool achordion_chord(uint16_t tap_hold_keycode,
+                      keyrecord_t* tap_hold_record,
+                      uint16_t other_keycode,
+                      keyrecord_t* other_record) {
+  if (other_keycode == CZ_CARETED ||
+      other_keycode == CZ_ACUTED ||
+      tap_hold_keycode == CZ_ACUTED ||
+      tap_hold_keycode == CZ_CARETED) {
+    return true;
+  }
+
+  return achordion_opposite_hands(tap_hold_record, other_record);
+}
+
+void matrix_scan_user(void) {
+  achordion_task();
+}
+
+bool achordion_eager_mod(uint8_t mod) {
+  switch (mod) {
+    case MOD_LSFT:
+    case MOD_RSFT:
+    case MOD_LCTL:
+    case MOD_RCTL:
+    case MOD_LGUI:
+    case MOD_RGUI:
+      return true;  // Eagerly apply Shift and Ctrl mods.
+
+    default:
+      return false;
+  }
 }
 
 /*

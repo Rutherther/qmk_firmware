@@ -21,3 +21,6 @@ bool process_czech_acute(uint16_t keycode, keyrecord_t* record,
 
 bool process_czech_caret(uint16_t keycode, keyrecord_t* record,
                          uint16_t caret_keycode, int8_t plain_layer);
+
+
+bool is_in_czech_accent_mode(void);

@@ -1,6 +1,9 @@
 #include "cz_accent.h"
 #include "keymap_czech.h"
 
+bool cz_send_acuted = false;
+bool cz_send_careted = false;
+
 const uint16_t cz_acute_keycodes[] = {
   KC_A, KC_E, KC_I, KC_O, KC_U, KC_Y
 };
@@ -44,8 +47,6 @@ void process_prefixed_accent(uint16_t keycode, keyrecord_t* record, const uint16
 
 bool process_czech_acute(uint16_t keycode, keyrecord_t* record,
                          uint16_t acute_keycode, int8_t plain_layer) {
-  static bool cz_send_acuted = false;
-
   if (keycode == acute_keycode) {
     cz_send_acuted = record->event.pressed;
 
@@ -72,8 +73,6 @@ bool process_czech_acute(uint16_t keycode, keyrecord_t* record,
 
 bool process_czech_caret(uint16_t keycode, keyrecord_t* record,
                          uint16_t caret_keycode, int8_t plain_layer) {
-  static bool cz_send_careted = false;
-
   if (keycode == caret_keycode) {
     cz_send_careted = record->event.pressed;
 
@@ -93,4 +92,8 @@ bool process_czech_caret(uint16_t keycode, keyrecord_t* record,
   }
 
   return true;
+}
+
+bool is_in_czech_accent_mode() {
+  return cz_send_careted || cz_send_acuted;
 }
