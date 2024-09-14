@@ -3,6 +3,8 @@
 #include "features/cz_accent.h"
 #include "features/achordion.h"
 
+bool process_caps_word_off(uint16_t keycode, keyrecord_t* record);
+
 enum layers {
   _QWERTY = 0,
   _QWERTY_NOHOMEMODS,
@@ -177,7 +179,7 @@ void keyboard_pre_init_user(void) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   static bool achordion = true;
-
+  if (!process_caps_word_off(keycode, record)) { return false; }
   if (!process_czech_acute(keycode, record, CZ_ACUTED, _PLAIN)) { return false; }
   if (!process_czech_caret(keycode, record, CZ_CARETED, _PLAIN)) { return false; }
   if (!process_layer_lock(keycode, record, QK_LLCK)) { return false; }
@@ -194,6 +196,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case ACHORDION_ON:
       achordion = true;
       return false;
+  }
+
+  return true;
+}
+
+bool process_caps_word_off(uint16_t keycode, keyrecord_t* record)
+{
+  if (is_caps_word_on() && keycode == KC_ESC) {
+    caps_word_off();
+    return false;
   }
 
   return true;
@@ -230,6 +242,25 @@ bool achordion_eager_mod(uint8_t mod) {
     default:
       return false;
   }
+}
+
+bool caps_word_press_user(uint16_t keycode) {
+    switch (keycode) {
+        // Keycodes that continue Caps Word, with shift applied.
+        case KC_A ... KC_Z:
+            add_weak_mods(MOD_BIT(KC_LSFT));  // Apply shift to next key.
+            return true;
+
+        // Keycodes that continue Caps Word, without shifting.
+        case KC_1 ... KC_0:
+        case KC_BSPC:
+        case KC_DEL:
+        case KC_UNDS:
+        case KC_MINS:
+            return true;
+        default:
+            return false;  // Deactivate Caps Word.
+    }
 }
 
 /*
