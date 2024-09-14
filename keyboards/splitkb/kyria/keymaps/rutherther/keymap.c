@@ -79,9 +79,9 @@ enum custom_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT(
     KC_TAB,  GUI_Q,    KC_W,     KC_E,     KC_R,      KC_T,                                                        KC_Y,     KC_U,     KC_I,     KC_O,     GUI_P,    KC_BSLS,
-    KC_ESC,  SYM_A,    LALT_S,   LSFT_D,   LCTL_F,    KC_G,                                                       KC_H,     LCTL_J,   RSFT_K,   LALT_L,   SYM_SCLN, KC_QUOT,
-    _______, KC_Z,     KC_X,     KC_C,     NAV_V,     KC_B,      NOHOMODS, CTRL,               FKEYS,     TTY,     KC_N,     WM_M,     KC_COMM,  KC_DOT,   KC_SLSH,  _______,
-                                 QK_LOCK,  _______,   QK_REP,    NUM_SPC,  CZ_ACUTED,          CZ_CARETED,KC_ENT,  KC_BSPC,  KC_DEL,   KC_APP
+    KC_ESC,  SYM_A,    LALT_S,   LSFT_D,   LCTL_F,    KC_G,                                                        KC_H,     LCTL_J,   RSFT_K,   LALT_L,   SYM_SCLN, KC_QUOT,
+    QK_LOCK, KC_Z,     KC_X,     KC_C,     NAV_V,     KC_B,      NOHOMODS, CTRL,               FKEYS,     TTY,     KC_N,     WM_M,     KC_COMM,  KC_DOT,   KC_SLSH,  KC_APP,
+                                 _______,  _______,   QK_REP,    NUM_SPC,  CZ_ACUTED,          CZ_CARETED,KC_ENT,  KC_BSPC,  _______,  _______
   ),
 
   [_QWERTY_NOHOMEMODS] = LAYOUT(
