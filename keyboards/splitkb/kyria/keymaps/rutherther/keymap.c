@@ -80,15 +80,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT(
     KC_TAB,  GUI_Q,    KC_W,     KC_E,     KC_R,      KC_T,                                                        KC_Y,     KC_U,     KC_I,     KC_O,     GUI_P,    KC_BSLS,
     KC_ESC,  SYM_A,    LALT_S,   LSFT_D,   LCTL_F,    KC_G,                                                        KC_H,     LCTL_J,   RSFT_K,   LALT_L,   SYM_SCLN, KC_QUOT,
-    QK_LOCK, KC_Z,     KC_X,     KC_C,     NAV_V,     KC_B,      NOHOMODS, CTRL,               FKEYS,     TTY,     KC_N,     WM_M,     KC_COMM,  KC_DOT,   KC_SLSH,  KC_APP,
+    QK_LOCK, KC_Z,     KC_X,     KC_C,     NAV_V,     KC_B,      _______, CTRL,                FKEYS,     TTY,     KC_N,     WM_M,     KC_COMM,  KC_DOT,   KC_SLSH,  KC_APP,
                                  _______,  _______,   QK_REP,    NUM_SPC,  CZ_ACUTED,          CZ_CARETED,KC_ENT,  KC_BSPC,  _______,  _______
   ),
 
   [_QWERTY_NOHOMEMODS] = LAYOUT(
     SUP_TAB,  KC_Q,     KC_W,     KC_E,     KC_R,      KC_T,                                                        KC_Y,     KC_U,    KC_I,     KC_O,     KC_P,     SUP_BSLS,
     CTL_ESC,  SYM_A,    KC_S,     KC_D,     KC_F,      NUM_G,                                                       KC_H,     KC_J,    KC_K,     KC_L,     SYM_SCLN, CTL_QUOT,
-    OSM_LSFT, KC_Z,     KC_X,     KC_C,     KC_V,      KC_B,     GAMES,    CTRL,               FKEYS,     TTY,      KC_N,     KC_M,    KC_COMM,  KC_DOT,   KC_SLSH,  OSM_RSFT,
-                                  QK_LOCK,  QWERTY,    QK_REP,   ALT_SPC,  CZ_ACUTED,          CZ_CARETED,ALT_ENT,  KC_BSPC,  KC_DEL,  KC_APP
+    OSM_LSFT, KC_Z,     KC_X,     KC_C,     KC_V,      KC_B,     _______,    CTRL,               FKEYS,     TTY,      KC_N,     KC_M,    KC_COMM,  KC_DOT,   KC_SLSH,  OSM_RSFT,
+                                  QK_LOCK,  _______,   QK_REP,   ALT_SPC,  CZ_ACUTED,          CZ_CARETED,ALT_ENT,  KC_BSPC,  KC_DEL,  KC_APP
   ),
 
   [_PLAIN] = LAYOUT(
@@ -101,7 +101,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_GAMES] = LAYOUT(
     KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,      KC_T,                                                       KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_BSLS,
     KC_LCTL,  KC_A,     KC_S,     KC_D,     KC_F,      KC_G,                                                       KC_H,     KC_J,     KC_K,     KC_L,     KC_SCLN,  KC_QUOT,
-    KC_LSFT,  KC_Z,     KC_X,     KC_C,     KC_V,      KC_B,    KC_LALT,    CTRL,               FKEYS,    QWERTY,  KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSFT,
+    KC_LSFT,  KC_Z,     KC_X,     KC_C,     KC_V,      KC_B,    KC_LALT,    CTRL,               FKEYS,    _______, KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSFT,
                                   _______,  _______,   NAV,     KC_SPC,     NUM,                SYM,      KC_ENT,  _______,  _______,  KC_ESC
   ),
 
@@ -109,7 +109,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,  _______,  KC_LABK,  KC_RABK,  KC_BSLS,  KC_GRAVE,                                                   KC_AMPR,  KC_UNDS,  KC_LBRC,  KC_RBRC,  KC_PERC,  _______,
     _______,  KC_EXLM,  KC_MINUS, KC_PLUS,  KC_EQUAL, KC_HASH,                                                    KC_PIPE,  KC_TILD,  KC_LPRN,  KC_RPRN,  KC_COLON, KC_DQUO,
     _______,  KC_COLN,  KC_SLASH, KC_ASTR,  KC_CIRC,  _______,  _______,  _______,            _______,  _______,  _______,  KC_DLR,   KC_LCBR,  KC_RCBR,  KC_AT,    _______,
-                                  _______,  _______,  _______,  _______,  _______,            QK_LLCK,  _______,  _______,  _______,  _______
+                                  _______,  _______,  _______,  _______,  _______,            QK_LLCK,  _______,  KC_DEL,   _______,  _______
   ),
 
   [_NAV] = LAYOUT(
@@ -151,7 +151,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,  _______,  _______,  _______,  _______,  _______,                                                    DT_UP,    _______,  _______,  _______,  _______,  ACHORDION_ON,
     _______,  _______,  _______,  _______,  _______,  _______,                                                    DT_DOWN,  _______,  _______,  _______,  _______,  ACHORDION_OFF,
     _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,  _______,  DT_PRNT,  _______,  _______,  _______,  _______,  _______,
-                                  _______,  _______,  _______,  _______,  _______,            _______,  _______,  _______,  _______,  _______
+                                  _______,  _______,  _______,  _______,  _______,            QWERTY,   NOHOMODS, GAMES,  _______,  _______
   ),
 
   [_TTY] = LAYOUT(
